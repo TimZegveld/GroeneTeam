@@ -12,7 +12,6 @@ namespace GroeneTeam
         public App()
         {
             MainPage = new RootPage();
-            var test = "";
         }
 
         protected override void OnStart() { }
