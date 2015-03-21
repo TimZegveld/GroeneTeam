@@ -23,6 +23,7 @@ namespace GroeneTeam.ViewModels
         private string _email = string.Empty;
         private string _wachtwoord = string.Empty;
 
+
         public LoginViewModel(INavigation navigation) { _navigation = navigation; }
 
         public string Email
