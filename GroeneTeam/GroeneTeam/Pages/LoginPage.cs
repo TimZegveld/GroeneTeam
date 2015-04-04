@@ -18,11 +18,16 @@ namespace GroeneTeam.Pages
 
             BindingContext = new LoginViewModel(Navigation);
             BackgroundColor = Helpers.Colors.Secondairy;
-            var layout = new StackLayout { Padding = 10 };
+            var layout = new StackLayout
+            {
+                Spacing = 20,
+                Padding = 50,
+                VerticalOptions = LayoutOptions.Center,
+            };
 
             var label = new Label
             {
-                Text = "Log in of registreer - " + _teller,
+                Text = "Log in of registreer",
                 Font = Font.SystemFontOfSize(NamedSize.Large, FontAttributes.Bold),
                 TextColor = Helpers.Colors.Quinary,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
@@ -32,47 +37,44 @@ namespace GroeneTeam.Pages
 
             layout.Children.Add(label);
 
-            var switchMetLabel = new StackLayout { Padding = 10, HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Start }, Orientation = StackOrientation.Horizontal };
-            var lblRegistreer = new Label
-            {
-                Text = "Registreren",
-                Font = Font.SystemFontOfSize(NamedSize.Large, FontAttributes.Bold),
-                TextColor = Helpers.Colors.Quinary,
-                VerticalOptions = LayoutOptions.CenterAndExpand,
-                XAlign = TextAlignment.Center,
-                YAlign = TextAlignment.Center,
-            };
-            switchMetLabel.Children.Add(lblRegistreer);
 
-            var btnRegistreer = new Switch() { };
-            btnRegistreer.Toggled += btnRegistreer_Toggled;
-            switchMetLabel.Children.Add(btnRegistreer);
+            var email = new Entry { Placeholder = "Email adres" };
+            email.SetBinding(Entry.TextProperty, LoginViewModel.EmailPropertyName);
 
-            layout.Children.Add(switchMetLabel);
+            var wachtwoord = new Entry { Placeholder = "Wachtwoord", IsPassword = true };
+            wachtwoord.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordPropertyName);
 
-            var username = new Entry { Placeholder = "Email" };
-            username.SetBinding(Entry.TextProperty, LoginViewModel.EmailPropertyName);
-            layout.Children.Add(username);
-
-            var password = new Entry { Placeholder = "Wachtwoord", IsPassword = true };
-            password.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordPropertyName);
-            layout.Children.Add(password);
-
-            var wachtwoordRegistreer = new Entry { Placeholder = "Vul uw wachtwoord nog een keer in.", IsPassword = true };
+            var wachtwoordRegistreer = new Entry { Placeholder = "Herhaal wachtwoord", IsPassword = true };
             wachtwoordRegistreer.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordRegistreerPropertyName);
-            layout.Children.Add(wachtwoordRegistreer);
+
+            var switchMetLabel = new StackLayout { Orientation = StackOrientation.Horizontal };
+            switchMetLabel.Children.Add(GeefLabel("Ik ben nieuw!"));
+            var btnRegistreer = new Switch(); btnRegistreer.Toggled += (s, e) => { wachtwoordRegistreer.IsVisible = e.Value; ((LoginViewModel)BindingContext).ToggleRegistreer(s, e); };
+            switchMetLabel.Children.Add(btnRegistreer);
 
             var btnLogIn = new Button { Text = "Log In", TextColor = Helpers.Colors.Quinary, BackgroundColor = Helpers.Colors.Primairy };
             btnLogIn.SetBinding(Button.CommandProperty, LoginViewModel.LoginCommandPropertyName);
-            layout.Children.Add(btnLogIn);
 
+            layout.Children.Add(switchMetLabel);
+            layout.Children.Add(email);
+            layout.Children.Add(wachtwoord);
+            layout.Children.Add(wachtwoordRegistreer);
+            layout.Children.Add(btnLogIn);
 
             Content = new ScrollView { Content = layout };
         }
 
-        void btnRegistreer_Toggled(object sender, ToggledEventArgs e)
+        private Label GeefLabel(string label)
         {
-            ((LoginViewModel)BindingContext).ToggleRegistreer(sender, e);
+            return new Label
+                   {
+                       Text = label,
+                       Font = Font.SystemFontOfSize(NamedSize.Large),
+                       TextColor = Helpers.Colors.Quinary,
+                       VerticalOptions = LayoutOptions.StartAndExpand,
+                       XAlign = TextAlignment.Center,
+                       YAlign = TextAlignment.Center,
+                   };
         }
     }
 }

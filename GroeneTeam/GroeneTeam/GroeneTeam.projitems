@@ -14,9 +14,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\RootPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\EventsView.cs" />
   </ItemGroup>
 </Project>
