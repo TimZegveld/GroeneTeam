@@ -13,15 +13,17 @@ namespace GroeneTeam.ViewModels
     {
         public const string EmailPropertyName = "Email";
         public const string WachtwoordPropertyName = "Wachtwoord";
+        public const string WachtwoordRegistreerPropertyName = "WachtwoordRegistreer";        
+        public const string RegistrerenPropertyName = "Registreren";
         public const string LoginCommandPropertyName = "LoginCommand";
-        public const string RegistreerCommandPropertyName = "RegistreerCommand";
 
         private INavigation _navigation;
 
         private Command _loginCommand;
-        private Command _registreerCommand;
         private string _email = string.Empty;
         private string _wachtwoord = string.Empty;
+        private string _wachtwoordRegistreer = string.Empty;
+        private bool _registreren= false;
 
 
         public LoginViewModel(INavigation navigation) { _navigation = navigation; }
@@ -38,25 +40,31 @@ namespace GroeneTeam.ViewModels
             set { SetProperty(ref _wachtwoord, value, WachtwoordPropertyName); }
         }
 
+        public string WachtwoordRegistreer
+        {
+            get { return _wachtwoordRegistreer; }
+            set { SetProperty(ref _wachtwoordRegistreer, value, WachtwoordRegistreerPropertyName); }
+        }
+        
+        public bool Registreren
+        {
+            get { return _registreren; }
+            set { SetProperty(ref _registreren, value, RegistrerenPropertyName); }
+        }
+
         public Command LoginCommand
         {
             get { return _loginCommand ?? (_loginCommand = new Command(async () => await ExecuteLoginCommand())); }
         }
 
-        public Command RegistreerCommand
-        {
-            get { return _registreerCommand ?? (_registreerCommand = new Command(async () => await ExecuteRegistreerCommand())); }
-        }
-
         protected async Task ExecuteLoginCommand()
         { 
-            //HAllo!!
             await _navigation.PopModalAsync(true);
         }
 
-        protected async Task ExecuteRegistreerCommand()
+        internal void ToggleRegistreer(object sender, ToggledEventArgs e)
         {
-            await _navigation.PushModalAsync(new LoginPage(), true);
+            Registreren = e.Value;
         }
     }
 }

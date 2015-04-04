@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using GroeneTeam.ViewModels;
@@ -24,7 +23,7 @@ namespace GroeneTeam.Pages
             var label = new Label
             {
                 Text = "Log in of registreer - " + _teller,
-                Font = Font.BoldSystemFontOfSize(NamedSize.Large),
+                Font = Font.SystemFontOfSize(NamedSize.Large, FontAttributes.Bold),
                 TextColor = Helpers.Colors.Quinary,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 XAlign = TextAlignment.Center,
@@ -33,23 +32,47 @@ namespace GroeneTeam.Pages
 
             layout.Children.Add(label);
 
-            var username = new Entry { Placeholder = "Username" };
+            var switchMetLabel = new StackLayout { Padding = 10, HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Start }, Orientation = StackOrientation.Horizontal };
+            var lblRegistreer = new Label
+            {
+                Text = "Registreren",
+                Font = Font.SystemFontOfSize(NamedSize.Large, FontAttributes.Bold),
+                TextColor = Helpers.Colors.Quinary,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                XAlign = TextAlignment.Center,
+                YAlign = TextAlignment.Center,
+            };
+            switchMetLabel.Children.Add(lblRegistreer);
+
+            var btnRegistreer = new Switch() { };
+            btnRegistreer.Toggled += btnRegistreer_Toggled;
+            switchMetLabel.Children.Add(btnRegistreer);
+
+            layout.Children.Add(switchMetLabel);
+
+            var username = new Entry { Placeholder = "Email" };
             username.SetBinding(Entry.TextProperty, LoginViewModel.EmailPropertyName);
             layout.Children.Add(username);
 
-            var password = new Entry { Placeholder = "Password", IsPassword = true };
+            var password = new Entry { Placeholder = "Wachtwoord", IsPassword = true };
             password.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordPropertyName);
             layout.Children.Add(password);
+
+            var wachtwoordRegistreer = new Entry { Placeholder = "Vul uw wachtwoord nog een keer in.", IsPassword = true };
+            wachtwoordRegistreer.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordRegistreerPropertyName);
+            layout.Children.Add(wachtwoordRegistreer);
 
             var btnLogIn = new Button { Text = "Log In", TextColor = Helpers.Colors.Quinary, BackgroundColor = Helpers.Colors.Primairy };
             btnLogIn.SetBinding(Button.CommandProperty, LoginViewModel.LoginCommandPropertyName);
             layout.Children.Add(btnLogIn);
 
-            var btnRegistreer = new Button { Text = "Registreer", TextColor = Helpers.Colors.Quinary, BackgroundColor = Helpers.Colors.Primairy };
-            btnRegistreer.SetBinding(Button.CommandProperty, LoginViewModel.RegistreerCommandPropertyName);
-            layout.Children.Add(btnRegistreer);
 
             Content = new ScrollView { Content = layout };
+        }
+
+        void btnRegistreer_Toggled(object sender, ToggledEventArgs e)
+        {
+            ((LoginViewModel)BindingContext).ToggleRegistreer(sender, e);
         }
     }
 }
