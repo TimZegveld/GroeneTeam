@@ -7,7 +7,7 @@ using JemId.Basis.DAL;
 
 namespace GroeneTeam.DAL
 {
-    public class Ronde
+    public class Ronde : DALTable
     {
         [DatabaseField(IsPrimaryKey = true)]
         public int RondeID { get; set; }

@@ -7,7 +7,7 @@ using JemId.Basis.DAL;
 
 namespace GroeneTeam.DAL
 {
-    public class Evenement
+    public class Evenement : DALTable
     {
         [DatabaseField(IsPrimaryKey = true)]
         public int EvenementID { get; set; }
@@ -29,5 +29,8 @@ namespace GroeneTeam.DAL
 
         [DatabaseField]
         public bool MagUitnodigen { get; set; }
+
+        [DatabaseField]
+        public int DeelnemerID { get; set; }
     }
 }
