@@ -49,7 +49,8 @@ namespace GroeneTeam.ViewModels
         }
 
         protected async Task ExecuteLoginCommand()
-        {
+        { 
+            //HAllo!!
             await _navigation.PopModalAsync(true);
         }
 
