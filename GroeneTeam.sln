@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroeneTeam.iOS", "GroeneTea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroeneTeam.Droid", "GroeneTeam\GroeneTeam.Droid\GroeneTeam.Droid.csproj", "{2AA445A9-C644-4A59-B6D7-530931A4EB02}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GroeneTeam", "GroeneTeam\GroeneTeam\GroeneTeam.shproj", "{EA979040-89DC-4E85-80F8-6F583DEE8997}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GroeneTeam.Shared", "GroeneTeam\GroeneTeam\GroeneTeam.Shared.shproj", "{EA979040-89DC-4E85-80F8-6F583DEE8997}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroeneTeam.DAL", "GroeneTeam.DAL\GroeneTeam.DAL.csproj", "{91271226-288F-4817-8DD7-52921834AD3B}"
 EndProject
