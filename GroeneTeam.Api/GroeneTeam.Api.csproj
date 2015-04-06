@@ -15,7 +15,7 @@
     <AssemblyName>GroeneTeam.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -47,6 +47,15 @@
     </Reference>
     <Reference Include="JemId.Basis.DAL">
       <HintPath>S:\Binaries\JemId\JemId.Basis.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="JemId.Basis.WebApi">
+      <HintPath>S:\Binaries\JemId\JemId.Basis.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="JemId.Basis.WebApi.BLL">
+      <HintPath>S:\Binaries\JemId\JemId.Basis.WebApi.BLL.dll</HintPath>
+    </Reference>
+    <Reference Include="JemId.Basis.WebApi.DAL">
+      <HintPath>S:\Binaries\JemId\JemId.Basis.WebApi.DAL.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -114,20 +123,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -143,6 +156,10 @@
     <ProjectReference Include="..\GroeneTeam.DAL\GroeneTeam.DAL.csproj">
       <Project>{91271226-288f-4817-8dd7-52921834ad3b}</Project>
       <Name>GroeneTeam.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GroeneTeam.Models\GroeneTeam.Models.csproj">
+      <Project>{f90e72c6-a341-4c58-8c04-9f3a0becc08f}</Project>
+      <Name>GroeneTeam.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +183,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61951</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61951/</IISUrl>
+          <IISUrl>http://localhost/GroeneTeam.Api</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Newtonsoft.Json;
 
 namespace GroeneTeam.Api
 {
@@ -19,6 +17,9 @@ namespace GroeneTeam.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
         }
     }
 }
