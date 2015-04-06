@@ -25,7 +25,17 @@ namespace GroeneTeam.ViewModels
                 new EventViewModel(){Titel = "Elluf kroegentocht", Omschrijving = "De tocht der tochten van het Westland! 11 kroegen, 11 stempels en kans op een fantastische prijs."},
             };
 
-            return list.Union(list).Union(list).Union(list).Union(list).Union(list).Union(list).Union(list).Union(list).Union(list);
+            list.AddRange(list); 
+            list.AddRange(list); 
+            list.AddRange(list); 
+            list.AddRange(list); 
+            list.AddRange(list); 
+            list.AddRange(list); 
+            list.AddRange(list); 
+            list.AddRange(list); 
+            list.AddRange(list);
+
+            return list;
         }
     }
 }

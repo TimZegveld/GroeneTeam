@@ -11,7 +11,11 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Colors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\CurrentEventPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\JemContentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\LoginPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\UpcomingEventsPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\MyEventsPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Pages\RootPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\EventViewModel.cs" />

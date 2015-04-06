@@ -44,7 +44,7 @@ namespace GroeneTeam.Pages
             var wachtwoord = new Entry { Placeholder = "Wachtwoord", IsPassword = true };
             wachtwoord.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordPropertyName);
 
-            var wachtwoordRegistreer = new Entry { Placeholder = "Herhaal wachtwoord", IsPassword = true };
+            var wachtwoordRegistreer = new Entry { Placeholder = "Herhaal wachtwoord", IsPassword = true, IsVisible = false };
             wachtwoordRegistreer.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordRegistreerPropertyName);
 
             var switchMetLabel = new StackLayout { Orientation = StackOrientation.Horizontal };
