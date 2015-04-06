@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GroeneTeam.Pages
 {
-    public abstract class JemContentPage : ContentPage
+    public class JemContentPage : ContentPage
     {
         public JemContentPage() { }
 
-        public virtual void Refresh()
+        protected void AddToolbarItem(string text, Action action)
         {
-
+            this.ToolbarItems.Add(new ToolbarItem() { Text = text, Command = new Command(action) });
         }
+
+        public virtual void Refresh() { }
+
     }
 }
