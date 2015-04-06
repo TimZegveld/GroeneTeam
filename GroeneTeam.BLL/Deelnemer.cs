@@ -42,6 +42,17 @@ namespace GroeneTeam.BLL
 
         #region Statics
 
+        public new static List<Deelnemer> GeefLijst(string where)
+        {
+            return GeefLijst(where, string.Empty, 0);
+        }
+
+        private static List<Deelnemer> GeefLijst(string where, string orderBy, int aantal)
+        {
+            return JemId.Basis.DAL.DALManager.GetCollection<DAL.Deelnemer>(where, orderBy, aantal)
+                .ConvertAll(dalObj => new Deelnemer(dalObj));
+        }
+
         public static Deelnemer Registreren(string naam, string email, string wachtwoord)
         {
             if (Gebruiker.Bestaat(email))
