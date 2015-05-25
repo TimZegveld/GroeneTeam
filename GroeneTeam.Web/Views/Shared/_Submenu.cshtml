@@ -1,8 +1,0 @@
-﻿@{
-    var taal = Session.GeefTaal();
-    var contentPagina = (ContentPagina)ViewData["ContentPagina"];
-}
-
-@if (contentPagina != null && contentPagina.Menu.IsNotNull() && contentPagina.Menu.SubMenuItems.Count > 0) {  
-    @Html.SubMenuItems(contentPagina.Menu, Session.GeefTaal())
-}

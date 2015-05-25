@@ -1,4 +1,0 @@
-﻿@model JemId.Basis.BLL.Rol
-
-<h2>@Model.Naam</h2>
-@Html.DropDownListDual((SelectList)ViewData["ddlBeschikbaar"], (SelectList)ViewData["ddlGeselecteerd"], string.Format("/Account/BewerkRol/{0}", Model.ID), Html.LabelTextBox("Naam", "txtNaam", Model.Naam))

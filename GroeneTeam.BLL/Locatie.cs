@@ -83,7 +83,6 @@ namespace GroeneTeam.BLL
             private set { _dalObj.RondeID = (_ronde = value).IdOr0(); }
         }
 
-
         #endregion
 
         #region Statics
@@ -95,6 +94,9 @@ namespace GroeneTeam.BLL
 
             return GeefLijst(string.Format("RondeID = {0}", ronde.ID), string.Empty, 0);
         }
+
+        public static List<Locatie> GeefLijst()
+        { return GeefLijst(string.Empty, string.Empty, 0); }
 
         private static List<Locatie> GeefLijst(string where, string orderBy, int aantal)
         {

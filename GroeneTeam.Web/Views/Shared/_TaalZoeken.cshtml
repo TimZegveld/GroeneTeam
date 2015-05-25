@@ -1,7 +1,0 @@
-﻿@{
-    Taal taal = Session.GeefTaal();
-    var talen = Taal.GeefLijst();
-}
-
-@Html.ZoekVeldPartial(string.Empty, "", true, false, string.Empty, string.Empty, true, "Site", "ZoekJson")
-@Html.TaalKeuzeMenu(taal.Code, true, string.Empty, talen, true)

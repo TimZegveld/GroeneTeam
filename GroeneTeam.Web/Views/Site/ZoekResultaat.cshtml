@@ -1,7 +1,0 @@
-﻿@{
-    ViewBag.Title = "ZoekResultaat";
-    string zoekString = (string)ViewData["ZoekString"];
-    var zoekResultaten = (List<ZoekResultaat>)ViewData["ZoekResultaten"];
-}
-
-@Html.ZoekResultaatPagina(zoekString, zoekResultaten, Html.Vertaal("Zoekresultaten"), Html.Vertaal("Er is gezocht op "), Html.Vertaal("Zoeken"), true)
