@@ -1,0 +1,27 @@
+﻿@model ContentPart
+
+@{
+    var bedrijf = HttpContext.Current.GeefBedrijf();
+    var taal = Session.GeefTaal();
+    var agenda = EvenementPart.GeeftLijstMetTaalGeldig(bedrijf, taal, 0).GroupBy(a => new { a.StartDatum.Year, a.StartDatum.Month }).OrderBy(x => x.Key.Year).ThenBy(x => x.Key.Month);
+}
+
+@if (Rechten.IsInRol(Rollen.Moderator)){
+    <h2>@Html.ContentPartBeheerMenu(Model)</h2>
+}
+
+<table class="table-style">
+    @foreach (var maandAgenda in agenda) {
+        <tr>
+            <th colspan="3">@(new DateTime(1970, maandAgenda.Key.Month, 1).ToString("MMMM")) @maandAgenda.Key.Year</th>
+        </tr>
+        
+        foreach (var agendaPunt in maandAgenda) {
+            <tr>
+                <td width="40"><time>@agendaPunt.StartDatum.Day</time></td>
+                <td>@agendaPunt.Titel</td>
+                <td></td>
+            </tr>
+        }
+    }
+</table>

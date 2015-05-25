@@ -1,0 +1,10 @@
+﻿@{  Taal taal = Session.GeefTaal();
+    Bedrijf bedrijf = HttpContext.Current.GeefBedrijf();
+    var nieuwsParts = NieuwsPart.GeefLijstGeldige(bedrijf, taal, 3);
+}
+
+@foreach (NieuwsPart nieuwsPart in nieuwsParts) {
+    if (nieuwsPart.IsMetLeesMeerPagina){
+        @Html.Link(nieuwsPart.ExtraContentPagina.GeefContentPaginaTaal(nieuwsPart.Taal).Link, string.Format("{0}<time>{1}</time>", nieuwsPart.Titel, nieuwsPart.Datum.ToShortDateString()))
+    }
+}    

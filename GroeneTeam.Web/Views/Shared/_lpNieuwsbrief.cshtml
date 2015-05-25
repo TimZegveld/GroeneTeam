@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title></title>
+    
+    @Html.CssCombineer("style.css", "jquery/jquery.fancybox.css")
+    <link rel="stylesheet" href="/Style/BasisStyle" type="text/css" />
+    
+    <style type="text/css">
+        html { color: #000; height: 100%;}
+	    body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,legend,input,textarea,p,blockquote,th,td { margin: 0; padding: 0; }
+	    h1,h2,h3,h4,h5,h6 { font-size: 100%; font-weight: normal; }
+	    table { border-collapse: collapse; border-spacing: 0;} 
+	    img { border: 0; padding: 0; }
+	    ol,ul,li { list-style: none; }
+        
+        body {
+            background-color:#fff;
+	        font-size: 11px;
+	        line-height: 20px;
+	        font-style: normal;
+	        font-weight: normal;
+	        font-family: Verdana, arial;
+	    }
+        
+        #wpr_all {
+            background-color:#ccc;
+            width: 600px;
+            margin: 10px auto;
+	        font-size: 11px;
+	        line-height: 20px;
+	        font-style: normal;
+	        font-weight: normal;
+	        font-family: Verdana, arial;
+        }
+
+        /*--- Dit moet altijd als laatste in de inline css toegevoegd worden ---*/
+        .afbeelding {page-break-before: always;}
+        table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+    </style>
+    
+    @Html.JsCombineer("jquery/jquery.jemloader.js", "jquery/jquery.fancybox.js")
+</head>
+
+
+<body>
+    <br /><br /><br /><br />
+    @RenderBody()
+   
+    @Html.LaadAlleStyleSheets()
+    @Html.LaadAlleScripts()
+</body>
+</html>

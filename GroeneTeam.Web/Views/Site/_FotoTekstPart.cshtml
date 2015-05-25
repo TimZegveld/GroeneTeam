@@ -1,0 +1,22 @@
+﻿@model FotoTekstPart
+
+@{
+    var contentPartTaal = (ContentPartTaal)ViewData["contentPartTaal"]; 
+    var contentPagina = (ContentPagina)ViewData["ContentPagina"];
+    var mode = (Mode)ViewData["Mode"];
+}
+
+@switch (mode){
+    case Mode.Bewerk:
+        @Html.FotoTekstBewerkPartial(contentPartTaal, Model, true)
+        break;
+    case Mode.Mail:
+        @Html.NieuwsbriefFotoTekstOpmaak(Model, contentPagina, mode)
+        break;
+    case Mode.MailVerstuur:
+        @Html.NieuwsbriefFotoTekstOpmaak(Model, contentPagina, mode)
+        break;
+    case Mode.Web:
+        @Html.FotoTekstBekijkPartial(Model, contentPagina)
+    break;
+}

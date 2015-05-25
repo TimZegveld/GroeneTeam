@@ -1,0 +1,8 @@
+﻿@{  Taal taal = Session.GeefTaal();
+    Bedrijf bedrijf = HttpContext.Current.GeefBedrijf();
+    var evenementParts = EvenementPart.GeeftLijstMetTaalGeldig(bedrijf, taal, 3);
+}
+
+@foreach (EvenementPart evenementPart in evenementParts) {
+    @Html.Link("/nl/Agenda", string.Format("{0}<time>{1}</time>", evenementPart.Titel, evenementPart.StartDatum.ToShortDateString()))
+}    

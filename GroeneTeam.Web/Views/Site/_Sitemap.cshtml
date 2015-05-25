@@ -1,0 +1,7 @@
+﻿@model ContentPart
+
+@if(Rechten.IsInRol(Rollen.Administrator)) {
+    <h2>@Html.ContentPartBeheerMenu(Model)</h2>
+}
+
+@Html.Sitemap("test")

@@ -1,0 +1,17 @@
+﻿@model DocumentGroep
+
+@{
+    var contentPagina = (ContentPagina)ViewData["ContentPagina"];
+}
+
+@switch ((Mode)ViewData["Mode"]) {
+    case Mode.Web:
+        if (Rechten.IsInRol(Rollen.Gebruiker) || Rechten.IsInRol(Rollen.Moderator)) {
+            <h2>@Model.Naam @Html.ContentPartBeheerMenu(new ContentPart(Model, contentPagina))</h2>
+            @Html.DocumentGroepBekijkPagina(Model)
+        }
+        break;
+    case Mode.Bewerk:
+        @Html.DocumentPartBewerkPartial((ContentPartTaal)ViewData["ContentPartTaal"])
+        break;
+}

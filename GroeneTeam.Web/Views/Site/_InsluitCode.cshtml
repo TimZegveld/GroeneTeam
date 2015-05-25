@@ -1,0 +1,16 @@
+﻿@model InsluitCode
+
+@{
+    var contentPartTaal = (ContentPartTaal)ViewData["contentPartTaal"];
+    var contentPagina = (ContentPagina)ViewData["ContentPagina"];
+    var mode = (Mode)ViewData["Mode"];
+}
+
+@switch (mode){
+	case Mode.Bewerk:
+        @Html.InsluitCodeBewerkPartial(contentPartTaal, Model)
+        break;
+    case Mode.Web:
+        @Html.InsluitCodeBekijkPartial(Model, contentPagina)
+    break;
+}

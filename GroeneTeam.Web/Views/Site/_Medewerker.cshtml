@@ -1,0 +1,27 @@
+﻿@model Medewerker
+
+@{
+    var contentPartTaal = (ContentPartTaal)ViewData["contentPartTaal"]; 
+    var contentPagina = (ContentPagina)ViewData["ContentPagina"];
+    var mode = (Mode)ViewData["Mode"];
+}
+
+@switch (mode){         
+    case Mode.Bewerk:
+        @Html.MedewerkerBewerkPartial(contentPartTaal)
+        break;
+    case Mode.Web:
+        <h2>@Model.Naam@Html.ContentPartBeheerMenu(new ContentPart(Model, contentPagina))</h2>
+        @Html.FaceboxImage(JemUploadHelper.GetImage(Model.Bijlage, 150), JemUploadHelper.GetImage(Model.Bijlage, 640), "", Model.Naam, new { style = "margin: 5px 15px 0px 0px; float: left;" })
+        <p>
+            if (Model.Naam != ""){ <b>Naam:</b>@Model.Naam<br /> } 
+                
+            if (Model.Functie != ""){ <b>Functie:</b> @Model.Functie<br /> } 
+                 
+            if (Model.TelefoonNr != ""){ <b>Tel:</b> @Model.TelefoonNr<br /> }
+                
+            if (Model.Emailadres != ""){ <b>E-mail: </b><a href="mailto:@Model.Emailadres%>">@Model.Emailadres</a><br /> }     
+        </p>
+        @Model.Tekst
+        break;
+}

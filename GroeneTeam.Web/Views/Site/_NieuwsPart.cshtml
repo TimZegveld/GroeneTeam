@@ -1,0 +1,54 @@
+﻿@model NieuwsPart
+
+@{
+    var contentPartTaal = (ContentPartTaal)ViewData["contentPartTaal"];
+    var contentPagina = (ContentPagina)ViewData["ContentPagina"];
+    var mode = (Mode)ViewData["Mode"];
+    bool isMetContentPagina = Model.ExtraContentPagina.IsNotNull();
+}
+
+@switch (mode) {
+    case Mode.Bewerk:
+        @Html.NieuwsPartBewerkPartial(contentPartTaal)
+        break;
+
+    case Mode.Web:
+        string defLink = isMetContentPagina ? Html.Link(Model.ExtraContentPagina.GeefLink(Model.Taal), "{0}").ToString() : "{0}";
+            
+        <h2>@string.Format(defLink, Model.Titel) @Html.ContentPartBeheerMenu(new ContentPart(Model, contentPagina))</h2>
+            
+        @(Model.Bijlage.IsNull() ? null : isMetContentPagina
+            ? string.Format(defLink, Html.Image(Model.Bijlage.GetImage(150), Model.Bijlage.BestandsnaamOrigineel, "nieuwsFoto", null)).ToHtmlString()
+            : Html.FaceboxImage(Model.Bijlage.GetImage(150), Model.Bijlage.GetImage(640), "nieuwsFoto", Model.Bijlage.BestandsnaamOrigineel)
+        )
+
+        @((isMetContentPagina ? Model.KorteTekst.VoegToeAanEindParagraph(" " + string.Format(defLink, Html.Vertaal("Lees meer"))) : Model.KorteTekst).ToHtmlString())
+        break;
+    case Mode.Mail:
+        <h2>@Model.Titel @Html.ContentPartBeheerMenu(new ContentPart(Model, contentPagina))</h2>
+
+        if (Model.Bijlage.IsNotNull()) {
+            @Html.FaceboxImage(JemUploadHelper.GetImage(Model.Bijlage, 150), JemUploadHelper.GetImage(Model.Bijlage, 640), "", Model.Bijlage.BestandsnaamOrigineel, new { style = "margin: 12px 15px 5px 15px; float: left;" })
+        }
+        
+        <p>
+            @Model.KorteTekst.VerwijderHtmlTags()
+            if(Model.ExtraContentPagina != null) {
+                <a href="/Site/Index/@Model.ExtraContentPagina.ID">@Html.Vertaal("Lees meer")</a>
+            }
+        </p>
+        break;
+    case Mode.MailVerstuur:
+        <h2>@Model.Titel @Html.ContentPartBeheerMenu(new ContentPart(Model, contentPagina))</h2>
+
+        if (Model.Bijlage != null && Model.Bijlage.ID != 0) {
+            @Html.FaceboxImage(JemUploadHelper.GetImage(Model.Bijlage, 150), JemUploadHelper.GetImage(Model.Bijlage, 640), "", Model.Bijlage.BestandsnaamOrigineel, new { style = "margin: 12px 15px 5px 15px; float: left;" })
+        }
+        <p>
+            @Model.KorteTekst.VerwijderHtmlTags()
+                if(isMetContentpagina) {
+                    <a href="/Site/Index/<%=Model.ExtraContentPagina.ID %>">@Html.Vertaal("Lees meer")</a>
+                }
+        </p>
+        break;
+}

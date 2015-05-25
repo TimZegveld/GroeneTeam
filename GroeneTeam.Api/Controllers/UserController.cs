@@ -6,8 +6,6 @@ namespace GroeneTeam.Api.Controllers
 {
     public class UserController : JemApiController
     {
-        //test
-
         public IEnumerable<User> Get()
         {
             return BLL.Deelnemer.GeefLijst(string.Empty).ConvertAll(d => new User(d));

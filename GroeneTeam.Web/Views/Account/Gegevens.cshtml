@@ -1,0 +1,40 @@
+﻿@model JemId.RelatieBeheer.BLL.ContactPersoon
+@{
+    ViewBag.Title = "Gegevens";
+}
+
+<h1>Mijn Gegevens</h1>
+<fieldset>
+    <legend>Persoonlijke gegevens</legend>
+    <div class="form-horizontaal">
+        <form method="post" action="">
+            @Html.JemValidationSummary()
+
+
+            @if (!Rechten.IsInRol(Rollen.Moderator) && Model.IsNotNull()) {
+                @Html.LabelSpan("Naam", string.Format("{0} {1}", Model.Naam), true)
+            } else {
+                @Html.LabelTextBox("Naam", "txtNaam", true, Model.Naam, null, false, true)
+            }
+
+            <p>
+                <label>@Html.Vertaal("Geslacht") *</label><span style="font-weight: normal;">man </span>@Html.RadioButton("ddlGeslacht", "m") <span style="font-weight: normal;">&nbsp;&nbsp;&nbsp;vrouw </span>@Html.RadioButton("ddlGeslacht", "v")
+            </p>
+            @Html.LabelTextBox("Adres", "txtAdres", true, Model.Adres, null, false, true)
+            @Html.LabelTextBox("Postcode", "txtPostcode", true, Model.Postcode, new { style = "text-transform: uppercase;" }, false, true)
+            @Html.LabelTextBox("Woonplaats", "txtWoonplaats", true, Model.Woonplaats, null, false, true)
+            @Html.LabelTextBox("Telefoonnummer", "txtTelefoonNr", true, Model.Telefoon, null, false, true)
+            @Html.LabelTextBox("E-mailadres", "txtEmail", true, Model.Email, null, false, true)
+            
+            @if (Model.IsNull())      {
+                @Html.LabelPassword("Wachtwoord", "txtWachtwoord", true)
+                @Html.LabelPassword("Herhaal wachtwoord", "txtWachtwoord2", true)
+            }
+            
+
+            @Html.Hidden("txtReturnSucces")
+            @Html.Submit("Opslaan", null, true, true)
+        </form>
+        <small>* verplicht veld</small>
+    </div>
+</fieldset>

@@ -1,0 +1,18 @@
+﻿@model EvenementPart
+
+@{
+    var contentPartTaal = (ContentPartTaal)ViewData["contentPartTaal"];
+    var contentPagina = (ContentPagina)ViewData["ContentPagina"];
+    var contentPart = new ContentPart(Model, contentPagina);
+    var mode = (Mode)ViewData["Mode"];  
+}
+
+@switch (mode){
+	case Mode.Bewerk:
+        @Html.EvenementPartBewerkPartial(contentPartTaal)
+        break;
+    case Mode.Web:
+        <h2>@Model.Titel @Html.ContentPartBeheerMenu(contentPart)</h2>                    
+        <p>@Model.Tekst</p>
+        break;
+}

@@ -1,0 +1,15 @@
+﻿@model PaginaInstelling
+
+@{
+    ViewBag.Title = "Bewerk";
+}
+
+@Html.PaginaBeheer(Model)
+
+@if (Model.BllType == "ContentPaginaTaal") {
+    var contentPagina = new ContentPaginaTaal(Model.BllID).ContentPagina;
+    
+    if (contentPagina == SysteemParameter.StartContentPagina(HttpContext.Current.GeefBedrijf())) {
+        @Html.PaginaAfbeeldingBewerk(new ContentPaginaTaal(Model.BllID).ContentPagina, 0)
+    }
+}

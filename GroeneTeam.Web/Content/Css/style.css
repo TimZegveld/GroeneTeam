@@ -1,0 +1,49 @@
+﻿/* ---------- CSS website naam ---------- */
+html {
+  height: 100%;
+  width: 100%;
+  color: #808080;
+  font-size: 62.5%;
+  background: #fff;
+  font-family: verdana, arial;
+}
+body {
+  height: 100%;
+  width: 100%;
+}
+/*-------------- Content style --------------*/
+section {
+  font: 0.95em/2 verdana, arial;
+}
+section h1,
+section h2 {
+  font-size: 2em;
+  margin: 0 0 12px;
+  line-height: 1.2em;
+}
+section p {
+  margin: 0 0 20px;
+}
+section ul {
+  margin: 0 0 20px 20px;
+  list-style-position: outside;
+}
+section ol {
+  margin: 0 0 20px 30px;
+  list-style-position: outside;
+}
+.cnr_contentPart {
+  margin: 0 0 12px;
+}
+.cnr_contentPart table {
+  margin: 0 0 20px;
+}
+.cnr_contentPart table td {
+  vertical-align: top;
+}
+.cnr_contentPart a {
+  color: #aaa;
+}
+.cnr_contentPart a:hover {
+  color: #bbb;
+}

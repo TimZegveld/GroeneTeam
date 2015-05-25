@@ -1,0 +1,25 @@
+﻿@model ContentPart
+
+@{
+    var bedrijf = HttpContext.Current.GeefBedrijf();
+    var taal = Session.GeefTaal();
+    var nieuwsItems = NieuwsPart.GeefLijstGeldige(bedrijf, taal);
+}
+
+@if (Rechten.IsInRol(Rollen.Moderator)) {
+    <h2>@Html.ContentPartBeheerMenu(Model)</h2>
+}
+
+@foreach (var nieuwsItem in nieuwsItems) {
+    bool isMetContentPagina = nieuwsItem.ExtraContentPagina.IsNotNull();
+    string defLink = isMetContentPagina ? Html.Link(nieuwsItem.ExtraContentPagina.GeefLink(nieuwsItem.Taal), "{0}").ToHtmlString() : "{0}";
+    
+
+    @(nieuwsItem.Bijlage.IsNull() ? null : isMetContentPagina
+        ? string.Format(defLink, Html.Image(nieuwsItem.Bijlage.GetImage(150), nieuwsItem.Bijlage.BestandsnaamOrigineel, "nieuwsFoto", null)).ToHtmlString()
+        : Html.FaceboxImage(nieuwsItem.Bijlage.GetImage(150), nieuwsItem.Bijlage.GetImage(640), "nieuwsFoto", nieuwsItem.Bijlage.BestandsnaamOrigineel)
+    )
+            
+    <h2>@string.Format(defLink, nieuwsItem.Titel).ToHtmlString()</h2>            
+    @((isMetContentPagina ? nieuwsItem.KorteTekst.InkortenAfrondenOpWoord(230).VoegToeAanEindParagraph(" " + string.Format(defLink, Html.Vertaal("Lees meer"))) : nieuwsItem.KorteTekst.InkortenAfrondenOpWoord(230)).ToHtmlString())
+}

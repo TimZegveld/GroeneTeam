@@ -1,0 +1,6 @@
+﻿@{
+    ViewBag.Title = "Index";
+    var nieuwsParts = (List<NieuwsPart>)ViewData["NieuwsItems"];
+}
+
+@Html.NieuwsBeheerOverzicht(nieuwsParts)
