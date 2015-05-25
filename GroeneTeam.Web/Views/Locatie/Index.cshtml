@@ -1,0 +1,48 @@
+﻿@model List<Locatie>
+@{
+    ViewBag.Title = "Locaties beheren";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<a class="btn btn-default" href="/Locatie/Bewerk">
+    @Html.BootstrapIcon("plus") Toevoegen
+</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Adres</th>
+            <th>Postcode</th>
+            <th>Plaats</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var locatie in Model)
+            {
+                <tr>
+                    <td>@locatie.Naam</td>
+                    <td>@locatie.Adres</td>
+                    <td>@locatie.Postcode</td>
+                    <td>@locatie.Plaats</td>
+                    <td>
+                        @Html.ActionLink(Html.BootstrapIcon("pencil").ToString(), "Bewerk", new { id = locatie.ID })
+                        @Html.ActionLink(Html.BootstrapIcon("trash").ToString(), "Verwijderen", new { id = locatie.ID })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">
+                    Nog geen locaties toegevoegd...
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
