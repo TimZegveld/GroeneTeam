@@ -144,7 +144,6 @@
     <Compile Include="Controllers\StyleController.cs" />
     <Compile Include="Controllers\SysteemParameterController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
-    <Compile Include="Controllers\WoordenboekController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,6 +173,7 @@
     <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\C Uploaden.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -238,10 +238,6 @@
     <Content Include="Views\SysteemParameter\Index.cshtml" />
     <Content Include="Views\Update\Index.cshtml" />
     <Content Include="Views\Update\_ToonUpdate.cshtml" />
-    <Content Include="Views\Woordenboek\Index.cshtml" />
-    <Content Include="Views\Woordenboek\VertaalWoord.cshtml" />
-    <Content Include="Views\Woordenboek\Woordenboek.cshtml" />
-    <Content Include="Views\Woordenboek\_VertaalWoord.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +263,16 @@
     <Content Include="Views\Shared\_Submenu.cshtml" />
     <Content Include="Views\Shared\_TaalZoeken.cshtml" />
     <Content Include="Views\Shared\_TitelMetaTags.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GroeneTeam.BLL\GroeneTeam.BLL.csproj">
+      <Project>{b73a672d-e570-4824-bb59-9c53cd5b6e72}</Project>
+      <Name>GroeneTeam.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GroeneTeam.DAL\GroeneTeam.DAL.csproj">
+      <Project>{91271226-288f-4817-8dd7-52921834ad3b}</Project>
+      <Name>GroeneTeam.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
