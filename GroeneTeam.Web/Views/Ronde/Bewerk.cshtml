@@ -1,0 +1,33 @@
+﻿@model Ronde
+@{
+    ViewBag.Title = "Ronde bewerken";
+    var locaties = (List<Locatie>)ViewBag.Locaties;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Bewerk", "Ronde", new { id = Model.ID }, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="txtDoorloopTijd">Doorlooptijd</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtDoorloopTijd" name="txtDoorloopTijd" placeholder="Doorlooptijd in minuten" value="@Model.DoorlooptijdInMinuten">
+        </div>
+    </div>
+    foreach (var locatie in locaties)
+    { 
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" name="chkLocatie@(locatie.ID)" id="chkLocatie@(locatie.ID)" @((Model.Locaties.Contains(locatie) ? "checked" : "").ToHtmlString())> @locatie.Naam</label>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">@Html.BootstrapIcon("floppy-disk") Opslaan</button>
+            <a class="btn btn-default" href="/Evenement/Bewerk/@Model.Evenement.ID">Annuleren</a>
+        </div>
+    </div>
+}

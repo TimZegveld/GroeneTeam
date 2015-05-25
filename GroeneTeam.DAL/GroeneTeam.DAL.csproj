@@ -47,9 +47,11 @@
   <ItemGroup>
     <Compile Include="Deelnemer.cs" />
     <Compile Include="Evenement.cs" />
+    <Compile Include="EvenementDeelnemer.cs" />
     <Compile Include="Locatie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ronde.cs" />
+    <Compile Include="RondeLocatie.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

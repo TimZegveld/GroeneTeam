@@ -9,7 +9,7 @@
     @Html.BootstrapIcon("plus") Toevoegen
 </a>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Naam</th>
@@ -25,13 +25,13 @@
             foreach (var locatie in Model)
             {
                 <tr>
-                    <td>@locatie.Naam</td>
+                    <td><a href="/Locatie/Bewerk/@locatie.ID">@locatie.Naam</a></td>
                     <td>@locatie.Adres</td>
                     <td>@locatie.Postcode</td>
                     <td>@locatie.Plaats</td>
                     <td>
-                        @Html.ActionLink(Html.BootstrapIcon("pencil").ToString(), "Bewerk", new { id = locatie.ID })
-                        @Html.ActionLink(Html.BootstrapIcon("trash").ToString(), "Verwijderen", new { id = locatie.ID })
+                        <a href="/Locatie/Bewerk/@locatie.ID">@Html.BootstrapIcon("edit")</a>
+                        <a href="/Locatie/Verwijder/@locatie.ID">@Html.BootstrapIcon("trash")</a>
                     </td>
                 </tr>
             }

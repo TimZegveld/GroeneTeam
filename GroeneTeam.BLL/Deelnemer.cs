@@ -42,10 +42,14 @@ namespace GroeneTeam.BLL
 
         #region Statics
 
+        public static List<Deelnemer> GeefLijst(Evenement evenement)
+        { return GeefLijst(""); }
+
+        public new static List<Deelnemer> GeefLijst()
+        { return GeefLijst(string.Empty, string.Empty, 0); }
+
         public new static List<Deelnemer> GeefLijst(string where)
-        {
-            return GeefLijst(where, string.Empty, 0);
-        }
+        { return GeefLijst(where, string.Empty, 0); }
 
         private static List<Deelnemer> GeefLijst(string where, string orderBy, int aantal)
         {

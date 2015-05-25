@@ -12,5 +12,10 @@ namespace System.Web.Mvc.Html
         {
             return new MvcHtmlString(string.Format("<span class=\"glyphicon glyphicon-{0}\"></span>", icoonNaam));
         }
+
+        public static MvcHtmlString ToHtmlString(this string s)
+        {
+            return new MvcHtmlString(s);
+        }
     }
 }

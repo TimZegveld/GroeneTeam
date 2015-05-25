@@ -121,8 +121,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EvenementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocatieController.cs" />
+    <Compile Include="Controllers\RondeController.cs" />
+    <Compile Include="Extensions\FormCollectionExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,11 +172,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Locatie\Index.cshtml" />
     <Content Include="Views\Locatie\Bewerk.cshtml" />
+    <Content Include="Views\Evenement\Index.cshtml" />
+    <Content Include="Views\Evenement\Bewerk.cshtml" />
+    <Content Include="Views\Ronde\Bewerk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

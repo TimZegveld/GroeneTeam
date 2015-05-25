@@ -24,8 +24,5 @@ namespace GroeneTeam.DAL
 
         [DatabaseField]
         public double Longitude { get; set; }
-
-        [DatabaseField]
-        public int RondeID { get; set; }
     }
 }
