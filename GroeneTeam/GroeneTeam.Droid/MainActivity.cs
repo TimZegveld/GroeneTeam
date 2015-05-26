@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using PushSharp.Client;
 
 namespace GroeneTeam.Droid
 {
@@ -15,6 +16,9 @@ namespace GroeneTeam.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+            if (!PushClient.IsRegistered(this))
+                PushClient.Register(this, PushHandlerBroadcastReceiver.SENDER_IDS);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new GroeneTeam.App());

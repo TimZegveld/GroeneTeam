@@ -10,7 +10,7 @@ namespace GroeneTeam.ServiceModels
 
         public static bool IsAuthenticated
         {
-            get { return ServiceApi != null && ServiceApi.IsAuthenticated; }
+            get {  return ServiceApi != null && ServiceApi.IsAuthenticated; }
         }
     }
 }

@@ -23,6 +23,7 @@
     <JavaMaximumHeapSize />
     <JavaOptions />
     <NuGetPackageImportStamp>89058886</NuGetPackageImportStamp>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidLinkSkip />
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
@@ -41,9 +42,9 @@
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
     <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
-    <JavaMaximumHeapSize />
-    <JavaOptions />
-    <MonoDroidExtraArgs />
+    <Debugger>Xamarin</Debugger>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,10 +63,11 @@
     <Reference Include="JemId.Basis.MonoDroid">
       <HintPath>S:\Binaries\JemId\JemId.Basis.MonoDroid.dll</HintPath>
     </Reference>
-    <Reference Include="JemId.Basis.RestProxy.MonoDroid">
-      <HintPath>S:\Binaries\JemId\JemId.Basis.RestProxy.MonoDroid.dll</HintPath>
+    <Reference Include="JemId.Basis.RestProxy.Portable">
+      <HintPath>S:\Binaries\JemId\JemId.Basis.RestProxy.Portable.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.CSharp" />
     <Reference Include="mscorlib" />
     <Reference Include="PushSharp.Android">
       <HintPath>S:\Binaries\3rdParty\PushSharp\PushSharp.Android.dll</HintPath>
@@ -75,8 +77,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\..\packages\Xamarin.Android.Support.v4.19.0.2\lib\MonoAndroid10\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -91,7 +91,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PushNotificationRegister.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="PushService.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -107,6 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GroeneTeam.Portable\GroeneTeam.Portable\GroeneTeam.Portable.csproj">
+      <Project>{5b33bdfa-14e4-4140-9853-f8de7a9148c9}</Project>
+      <Name>GroeneTeam.Portable</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\GroeneTeam\GroeneTeam.projitems" Label="Shared" Condition="Exists('..\GroeneTeam\GroeneTeam.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
