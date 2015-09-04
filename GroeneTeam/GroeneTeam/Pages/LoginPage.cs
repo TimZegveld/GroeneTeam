@@ -16,7 +16,7 @@ namespace GroeneTeam.Pages
             _teller++;
             Console.WriteLine(_teller.ToString());
 
-            BindingContext = new LoginViewModel(Navigation);
+            BindingContext = new LoginViewModel(Navigation, this);
             BackgroundColor = Helpers.Colors.Secondairy;
             var layout = new StackLayout
             {
@@ -27,7 +27,7 @@ namespace GroeneTeam.Pages
 
             var label = new Label
             {
-                Text = "Log in of registreer",
+                Text = "Log in",
                 Font = Font.SystemFontOfSize(NamedSize.Large, FontAttributes.Bold),
                 TextColor = Helpers.Colors.Quinary,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
@@ -44,21 +44,11 @@ namespace GroeneTeam.Pages
             var wachtwoord = new Entry { Placeholder = "Wachtwoord", IsPassword = true };
             wachtwoord.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordPropertyName);
 
-            var wachtwoordRegistreer = new Entry { Placeholder = "Herhaal wachtwoord", IsPassword = true, IsVisible = false };
-            wachtwoordRegistreer.SetBinding(Entry.TextProperty, LoginViewModel.WachtwoordRegistreerPropertyName);
-
-            var switchMetLabel = new StackLayout { Orientation = StackOrientation.Horizontal };
-            switchMetLabel.Children.Add(GeefLabel("Ik ben nieuw!"));
-            var btnRegistreer = new Switch(); btnRegistreer.Toggled += (s, e) => { wachtwoordRegistreer.IsVisible = e.Value; ((LoginViewModel)BindingContext).ToggleRegistreer(s, e); };
-            switchMetLabel.Children.Add(btnRegistreer);
-
             var btnLogIn = new Button { Text = "Log In", TextColor = Helpers.Colors.Quinary, BackgroundColor = Helpers.Colors.Primairy };
             btnLogIn.SetBinding(Button.CommandProperty, LoginViewModel.LoginCommandPropertyName);
 
-            layout.Children.Add(switchMetLabel);
             layout.Children.Add(email);
             layout.Children.Add(wachtwoord);
-            layout.Children.Add(wachtwoordRegistreer);
             layout.Children.Add(btnLogIn);
 
             Content = new ScrollView { Content = layout };

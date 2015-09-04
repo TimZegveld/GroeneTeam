@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
-using GroeneTeam.Pages;
+﻿using GroeneTeam.Portable;
+using JemId.Basis.RestProxy.Portable;
+using GroeneTeam.ServiceModels;
+using JemId.Basis.RestProxy.Portable.Models;
 using Xamarin.Forms;
 
 namespace GroeneTeam.ViewModels
@@ -13,20 +10,19 @@ namespace GroeneTeam.ViewModels
     {
         public const string EmailPropertyName = "Email";
         public const string WachtwoordPropertyName = "Wachtwoord";
-        public const string WachtwoordRegistreerPropertyName = "WachtwoordRegistreer";        
-        public const string RegistrerenPropertyName = "Registreren";
         public const string LoginCommandPropertyName = "LoginCommand";
 
         private INavigation _navigation;
+        private Page _page;
 
         private Command _loginCommand;
         private string _email = string.Empty;
         private string _wachtwoord = string.Empty;
-        private string _wachtwoordRegistreer = string.Empty;
-        private bool _registreren= false;
 
-
-        public LoginViewModel(INavigation navigation) { _navigation = navigation; }
+        public LoginViewModel(INavigation navigation, Page page)
+        {
+            _navigation = navigation; _page = page;
+        }
 
         public string Email
         {
@@ -40,31 +36,26 @@ namespace GroeneTeam.ViewModels
             set { SetProperty(ref _wachtwoord, value, WachtwoordPropertyName); }
         }
 
-        public string WachtwoordRegistreer
-        {
-            get { return _wachtwoordRegistreer; }
-            set { SetProperty(ref _wachtwoordRegistreer, value, WachtwoordRegistreerPropertyName); }
-        }
-        
-        public bool Registreren
-        {
-            get { return _registreren; }
-            set { SetProperty(ref _registreren, value, RegistrerenPropertyName); }
-        }
-
         public Command LoginCommand
         {
-            get { return _loginCommand ?? (_loginCommand = new Command(async () => await ExecuteLoginCommand())); }
+            get { return _loginCommand ?? (_loginCommand = new Command(() => ExecuteLoginCommand())); }
         }
 
-        protected async Task ExecuteLoginCommand()
-        { 
-            await _navigation.PopModalAsync(true);
-        }
-
-        internal void ToggleRegistreer(object sender, ToggledEventArgs e)
+        protected void ExecuteLoginCommand()
         {
-            Registreren = e.Value;
+            SessionManager.ServiceApi = new ServiceApi(Email, Wachtwoord.GetSHA256());
+            var loginInfo = new LoginInfo(Email, CrossDevice.Model);
+            SessionManager.ServiceApi.LoginAsync(loginInfo, SuccesvolIngelogd, FoutBijInloggen);
+        }
+
+        private void FoutBijInloggen(string obj)
+        {
+            _page.DisplayAlert("Fout bij inloggen", obj, "OK");
+        }
+
+        private void SuccesvolIngelogd()
+        {
+            _navigation.PopModalAsync(true);
         }
     }
 }
