@@ -121,8 +121,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attributes\ModelStateTempDataTransfer.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocatieController.cs" />
+    <Compile Include="Enumerators\FormulierMeldingType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,6 +178,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Locatie\Index.cshtml" />
     <Content Include="Views\Locatie\Bewerk.cshtml" />
+    <Content Include="Views\Account\Inloggen.cshtml" />
+    <Content Include="Views\Account\Bewerk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
