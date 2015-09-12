@@ -12,24 +12,51 @@ namespace GroeneTeam.BLL
     {
         protected override string BllTypeNaamMeervoud { get { return "Deelnemers"; } }
 
+        private static Deelnemer _currentDeelnemer;
+        private List<Evenement> _evenementen;
+
         #region Constructors
 
         public Deelnemer()
-            : this(new DAL.Deelnemer()) { }
+            : this(new DAL.Deelnemer())
+        { }
 
         public Deelnemer(int id)
-            : base(JemId.Basis.DAL.DALManager.Get<DAL.Deelnemer>(id)) { }
+            : base(JemId.Basis.DAL.DALManager.Get<DAL.Deelnemer>(id))
+        { }
 
         public Deelnemer(DAL.Deelnemer dalObj)
-            : base(dalObj) { }
+            : base(dalObj)
+        { }
 
         #endregion
 
         #region Properties
 
-        protected DAL.Deelnemer GroeneTeamDalObj
+        protected DAL.Deelnemer GroeneTeamDalObj { get { return (DAL.Deelnemer)_dalObj; } }
+
+        public new static Deelnemer Current
         {
-            get { return (DAL.Deelnemer)GroeneTeamDalObj; }
+            get
+            {
+                if (_currentDeelnemer != null)
+                    return _currentDeelnemer;
+
+                if (Gebruiker.Current.IsNull())
+                    return null;
+
+                return _currentDeelnemer = new Deelnemer(Gebruiker.Current.ID);
+            }
+        }
+
+        public List<Evenement> Evenementen
+        {
+            get
+            {
+                if (_evenementen == null)
+                    _evenementen = EvenementDeelnemer.GeefLijst(this);
+                return _evenementen;
+            }
         }
 
         public bool MagHosten

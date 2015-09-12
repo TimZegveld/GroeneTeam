@@ -39,9 +39,7 @@ namespace GroeneTeam.Web.Controllers
         }
     }
 
-    /// <summary>
-    /// Exporteert de ModelState na het uitvoeren van de Action naar de TempDataDictionary
-    /// </summary>
+    /// <summary> Exporteert de ModelState na het uitvoeren van de Action naar de TempDataDictionary </summary>
     public class ExportModelStateToTempData : ModelStateTempDataTransfer
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)
@@ -62,16 +60,14 @@ namespace GroeneTeam.Web.Controllers
 
                 filterContext.Controller.TempData["FormulierMelding"] = filterContext.Controller.ViewData["FormulierMelding"];
                 filterContext.Controller.TempData["MeldingType"] = filterContext.Controller.ViewData["MeldingType"];
-                filterContext.Controller.TempData["FormNaam"] = filterContext.Controller.ViewData["FormNaam"];
+                //filterContext.Controller.TempData["FormNaam"] = filterContext.Controller.ViewData["FormNaam"];
             }
 
             base.OnActionExecuted(filterContext);
         }
     }
 
-    /// <summary>
-    /// Importeert de ModelState uit de TempDataDictionary voordat de Action wordt uitgevoerd
-    /// </summary>
+    /// <summary> Importeert de ModelState uit de TempDataDictionary voordat de Action wordt uitgevoerd </summary>
     public class ImportModelStateFromTempData : ModelStateTempDataTransfer
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -82,8 +78,8 @@ namespace GroeneTeam.Web.Controllers
                 filterContext.Controller.ViewData.ModelState.Merge(modelState);
 
             filterContext.Controller.ViewData["FormulierMelding"] = filterContext.Controller.TempData["FormulierMelding"];
-            filterContext.Controller.TempData["MeldingType"] = filterContext.Controller.ViewData["MeldingType"];
-            filterContext.Controller.ViewData["FormNaam"] = filterContext.Controller.TempData["FormNaam"];
+            filterContext.Controller.ViewData["MeldingType"] = filterContext.Controller.TempData["MeldingType"];
+            //filterContext.Controller.ViewData["FormNaam"] = filterContext.Controller.TempData["FormNaam"];
 
             base.OnActionExecuting(filterContext);
         }

@@ -18,12 +18,16 @@
                 </button>
                 @Html.ActionLink("Pubcrawl", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Evenementen", "Index", "Evenement")</li>
-                    <li>@Html.ActionLink("Locaties", "Index", "Locatie")</li>
-                </ul>
-            </div>
+            @if (Deelnemer.Current.IsNotNull())
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Evenementen", "Index", "Evenement")</li>
+                        <li>@Html.ActionLink("Locaties", "Index", "Locatie")</li>
+                        <li>@Html.ActionLink("SignOut", "Uitloggen", "Account")</li>
+                    </ul>
+                </div>
+            }
         </div>
     </div>
     <div class="container body-content">

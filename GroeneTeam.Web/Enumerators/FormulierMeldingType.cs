@@ -9,7 +9,7 @@ namespace GroeneTeam.Web.Enumerators
     {
         Onbekend = 0,
         Info = 1,
-        Succes = 2,
+        Success = 2,
         Warning = 3,
         Danger = 4
     }

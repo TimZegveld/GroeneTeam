@@ -35,5 +35,11 @@ namespace GroeneTeam.BLL
             string where = string.Format("DeelnemerID IN (SELECT DeelnemerID FROM EvenementDeelnemer WHERE EvenementID = {0})", evenement.ID);
             return Deelnemer.GeefLijst(where);
         }
+
+        internal static List<Evenement> GeefLijst(Deelnemer deelnemer)
+        {
+            string where = string.Format("EvenementID IN (SELECT EvenementID FROM EvenementDeelnemer WHERE DeelnemerID = {0})", deelnemer.ID);
+            return Evenement.GeefLijst(where);
+        }
     }
 }

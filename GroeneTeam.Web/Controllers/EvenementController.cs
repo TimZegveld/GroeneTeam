@@ -1,14 +1,27 @@
 ﻿using System;
 using System.Web.Mvc;
 using GroeneTeam.BLL;
+using GroeneTeam.Web.Attributes;
+using JemId.Basis.BLL;
 
 namespace GroeneTeam.Web.Controllers
 {
-    public class EvenementController : Controller
+    [CustomAuthorize]
+    public class EvenementController : BaseController
     {
         public ActionResult Index()
         {
+            var deelnemer = new Deelnemer(Gebruiker.Current.ID);
+            if (!deelnemer.MagHosten)
+                return RedirectToAction("MyCrawls");
+
             var evenementen = Evenement.GeefLijst();
+            return View(evenementen);
+        }
+
+        public ActionResult MyCrawls()
+        {
+            var evenementen = Deelnemer.Current.Evenementen;
             return View(evenementen);
         }
 

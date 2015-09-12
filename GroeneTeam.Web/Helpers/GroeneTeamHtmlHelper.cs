@@ -27,14 +27,14 @@ namespace System.Web.Mvc.Html
             string melding = (string)htmlHelper.ViewData["FormulierMelding"];
             var type = (FormulierMeldingType)(htmlHelper.ViewData["MeldingType"] != null? (int)htmlHelper.ViewData["MeldingType"] : 0);
 
-            if (string.IsNullOrEmpty(melding))
+            if (string.IsNullOrEmpty(melding) || type == FormulierMeldingType.Onbekend)
                 return null;
 
             StringBuilder s = new StringBuilder();
 
-            s.AppendFormat("<div class=\"alert alert-{0} alert-dismissible\" role=\"alert\">", type.ToString());
+            s.AppendFormat("<div class=\"alert alert-{0} alert-dismissible\" role=\"alert\">", type.ToString().ToLower());
             s.AppendFormat("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>");
-            s.AppendFormat("<strong>Warning!</strong> {0}", melding);
+            s.AppendFormat("<strong>{0}!</strong> {1}", type.ToString(), melding);
             s.AppendLine("</div>");
 
             return new HtmlString(s.ToString());

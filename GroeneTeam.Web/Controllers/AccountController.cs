@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using GroeneTeam.Web.Attributes;
 using GroeneTeam.Web.Enumerators;
+using GroeneTeam.Web.Extensions;
 using JemId.Basis;
 using JemId.Basis.BLL;
 
@@ -12,11 +9,17 @@ namespace GroeneTeam.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        [ImportModelStateFromTempData]
-        public ActionResult Inloggen()
+        [CustomAuthorize]
+        public ActionResult Index()
         {
-            return View();
+            if (Gebruiker.Current.IsNull())
+                return RedirectToAction("Inloggen");
+
+            return Redirect("/Evenement/Index");
         }
+
+        [ImportModelStateFromTempData]
+        public ActionResult Inloggen() { return View(); }
 
         [HttpPost]
         [ExportModelStateToTempData]
@@ -32,15 +35,38 @@ namespace GroeneTeam.Web.Controllers
 
             var gebruiker = new Gebruiker(txtGebruikersnaam);
             if (gebruiker.IsNull())
+            {
+                ZetFormulierMelding("Fout bij inloggen", FormulierMeldingType.Danger);
                 return RedirectToAction("Inloggen");
+            }
 
             if (gebruiker.Inloggen(txtWachtwoord.CodeerWachtwoord()))
             {
-                ZetFormulierMelding("Gefeliciteerd u bent succesvol ingelog!", (int)FormulierMeldingType.Succes);
-                return Redirect("/Account/Inloggen");
+                Session.ZetGebruiker(gebruiker);
+
+                ZetFormulierMelding("Gefeliciteerd u bent succesvol ingelogd!", FormulierMeldingType.Success);
+                return RedirectToIndex();
             }
 
             return RedirectToAction("Inloggen");
+        }
+
+        public virtual ActionResult Uitloggen(string returnUrl)
+        {
+            try
+            {
+                var gebruiker = Session.GeefGebruiker();
+                if (gebruiker.IsNotNull())
+                    gebruiker.Uitloggen();
+
+                Session.Clear();
+            }
+            catch (JemException e) { HandleJemException(e); }
+
+            if (!string.IsNullOrEmpty(returnUrl))
+                return Redirect(returnUrl);
+
+            return Redirect("/");
         }
     }
 }

@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -121,12 +122,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Attributes\ModelStateTempDataTransfer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EvenementController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocatieController.cs" />
+    <Compile Include="Controllers\RondeController.cs" />
     <Compile Include="Enumerators\FormulierMeldingType.cs" />
+    <Compile Include="Extensions\FormCollectionExtensions.cs" />
+    <Compile Include="Extensions\SessionExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,6 +186,10 @@
     <Content Include="Views\Locatie\Bewerk.cshtml" />
     <Content Include="Views\Account\Inloggen.cshtml" />
     <Content Include="Views\Account\Bewerk.cshtml" />
+    <Content Include="Views\Evenement\Bewerk.cshtml" />
+    <Content Include="Views\Evenement\Index.cshtml" />
+    <Content Include="Views\Ronde\Bewerk.cshtml" />
+    <Content Include="Views\Evenement\MyCrawls.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
