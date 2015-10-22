@@ -1,9 +1,9 @@
 ﻿@model List<Evenement>
-@{
-    ViewBag.Title = "Evenementen beheren";
-}
+@{ ViewBag.Title = "Evenementen beheren"; }
 
 <h2>@ViewBag.Title</h2>
+
+@Html.JemValidationSummary()
 
 <a class="btn btn-default" href="/Evenement/Bewerk">
     @Html.BootstrapIcon("plus") Toevoegen

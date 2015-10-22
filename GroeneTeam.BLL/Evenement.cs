@@ -84,6 +84,16 @@ namespace GroeneTeam.BLL
             private set { _dalObj.DeelnemerID = (_deelnemer = value).IdOr0(); }
         }
 
+        public List<Deelnemer> Deelnemers
+        {
+            get
+            {
+                if (_deelnemers == null)
+                    _deelnemers = EvenementDeelnemer.GeefLijst(this);
+                return _deelnemers;
+            }
+        }
+
         public List<Ronde> Rondes
         {
             get
@@ -102,19 +112,18 @@ namespace GroeneTeam.BLL
             }
         }
 
-        public List<Deelnemer> Deelnemers
-        {
-            get
-            {
-                if (_deelnemers == null)
-                    _deelnemers = EvenementDeelnemer.GeefLijst(this);
-                return _deelnemers;
-            }
-        }
-
         #endregion
 
         #region Statics
+
+        /// <summary> Geeft een lijst van evenementen die door de gebruiker worden gehost en dus mogen worden beheert </summary>
+        public static List<Evenement> GeefLijstBeheer(Deelnemer host)
+        {
+            if (!host.MagHosten)
+                return new List<Evenement>();
+
+            return GeefLijst(string.Format("DeelnemerID = {0}", host.ID));
+        }
 
         public static List<Evenement> GeefLijst()
         {

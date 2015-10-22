@@ -36,7 +36,7 @@ namespace GroeneTeam.Web.Controllers
             var gebruiker = new Gebruiker(txtGebruikersnaam);
             if (gebruiker.IsNull())
             {
-                ZetFormulierMelding("Fout bij inloggen", FormulierMeldingType.Danger);
+                ZetFormulierMelding("Fout bij inloggen, gebruikersnaam en wachtwoord onjuist", FormulierMeldingType.Danger);
                 return RedirectToAction("Inloggen");
             }
 
@@ -48,6 +48,7 @@ namespace GroeneTeam.Web.Controllers
                 return RedirectToIndex();
             }
 
+            ZetFormulierMelding("Fout bij inloggen, wachtwoord onjuist", FormulierMeldingType.Danger);
             return RedirectToAction("Inloggen");
         }
 

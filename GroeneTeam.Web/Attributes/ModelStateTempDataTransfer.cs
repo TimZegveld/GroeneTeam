@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GroeneTeam.Web.Enumerators;
 
 namespace GroeneTeam.Web.Controllers
 {
@@ -51,6 +52,8 @@ namespace GroeneTeam.Web.Controllers
                 ModelStateDictionary modelState = filterContext.Controller.ViewData.ModelState;
                 if (!modelState.IsValid)
                 {
+                    filterContext.Controller.TempData["MeldingType"] = (int)FormulierMeldingType.Danger;
+
                     var formCollection = new FormCollection(HttpContext.Current.Request.Form);
                     foreach (string key in formCollection.Keys)
                         modelState.SetModelValue(key, formCollection.GetValue(key));

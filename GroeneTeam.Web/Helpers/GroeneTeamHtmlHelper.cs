@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using JemId.Basis;
 using GroeneTeam.Web.Enumerators;
 
 namespace System.Web.Mvc.Html
@@ -22,10 +22,12 @@ namespace System.Web.Mvc.Html
         //public static HtmlString FormulierWarningMelding(this HtmlHelper htmlHelper)
         //{ return htmlHelper.FormulierMelding(FormulierMeldingType.Warning); }
 
-        public static HtmlString FormulierMelding(this HtmlHelper htmlHelper)
+        public static HtmlString FormulierMelding(this HtmlHelper htmlHelper, string melding = "")
         {
-            string melding = (string)htmlHelper.ViewData["FormulierMelding"];
-            var type = (FormulierMeldingType)(htmlHelper.ViewData["MeldingType"] != null? (int)htmlHelper.ViewData["MeldingType"] : 0);
+            if (melding.IsNullOrEmpty())
+                melding = (string)htmlHelper.ViewData["FormulierMelding"];
+
+            var type = (FormulierMeldingType)(htmlHelper.ViewData["MeldingType"] != null ? (int)htmlHelper.ViewData["MeldingType"] : 0);
 
             if (string.IsNullOrEmpty(melding) || type == FormulierMeldingType.Onbekend)
                 return null;
@@ -51,7 +53,7 @@ namespace System.Web.Mvc.Html
             }
 
             if (s.Length > 0)
-                return new HtmlString(string.Format("<div class=\"validation-summary jem-error\"><span>{0}</span><ul>{1}</ul></div>", melding, s));
+                return new HtmlString(string.Format("{0}{1}", htmlHelper.FormulierMelding(string.Format("<span>{0}</span><ul>{1}</ul>", melding, s))));
 
             return new HtmlString(string.Format("{0}{1}", htmlHelper.FormulierMelding(), s));
         }

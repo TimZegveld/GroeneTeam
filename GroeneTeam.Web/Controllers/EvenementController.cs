@@ -9,20 +9,19 @@ namespace GroeneTeam.Web.Controllers
     [CustomAuthorize]
     public class EvenementController : BaseController
     {
+        [ImportModelStateFromTempData]
         public ActionResult Index()
         {
-            var deelnemer = new Deelnemer(Gebruiker.Current.ID);
-            if (!deelnemer.MagHosten)
+            if (!Deelnemer.Current.MagHosten)
                 return RedirectToAction("MyCrawls");
 
-            var evenementen = Evenement.GeefLijst();
+            var evenementen = Evenement.GeefLijstBeheer(Deelnemer.Current);
             return View(evenementen);
         }
 
         public ActionResult MyCrawls()
         {
-            var evenementen = Deelnemer.Current.Evenementen;
-            return View(evenementen);
+            return View(Deelnemer.Current.Evenementen);
         }
 
         public ActionResult Bewerk(int? id)
@@ -32,6 +31,7 @@ namespace GroeneTeam.Web.Controllers
         }
 
         [HttpPost]
+        [ExportModelStateToTempData]
         public ActionResult Bewerk(int? id, string txtNaam, string txtOmschrijving, string txtStartTijd, string txtEindTijd, string chkIsOpenbaar, string chkMagUitnodigen)
         {
             var startTijd = Convert.ToDateTime(txtStartTijd);
@@ -42,6 +42,7 @@ namespace GroeneTeam.Web.Controllers
             var evenement = new Evenement(id.GetValueOrDefault());
             evenement.Opslaan(txtNaam, txtOmschrijving, startTijd, eindTijd, isOpenbaar, magUitnodigen);
 
+            ZetFormulierMelding("Evenement opgeslagen", Enumerators.FormulierMeldingType.Success);
             return RedirectToAction("Index");
         }
 
