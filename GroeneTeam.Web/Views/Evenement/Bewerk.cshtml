@@ -1,0 +1,105 @@
+﻿@model Evenement
+@{
+    ViewBag.Title = "Evenement bewerken";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Bewerk", "Evenement", new { id = Model.ID }, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="txtNaam">Naam</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtNaam" name="txtNaam" placeholder="Naam" value="@Model.Naam">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="txtOmschrijving">Omschrijving</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtOmschrijving" name="txtOmschrijving" placeholder="Omschrijving" value="@Model.Omschrijving">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="txtStartTijd">Starttijd</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtStartTijd" name="txtStartTijd" placeholder="Starttijd" value="@Model.StartTijd">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="txtEindTijd">Eindtijd</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtEindTijd" name="txtEindTijd" placeholder="Eindtijd" value="@Model.EindTijd">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label><input type="checkbox" name="chkIsOpenbaar" id="chkIsOpenbaar" @((Model.IsOpenbaar ? "checked" : "").ToHtmlString())> Is openbaar</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label><input type="checkbox" name="chkMagUitnodigen" id="chkIsOpenbaar" @((Model.MagUitnodigen ? "checked" : "").ToHtmlString())> Mag uitnodigen</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">@Html.BootstrapIcon("floppy-disk") Opslaan</button>
+        </div>
+    </div>
+}
+
+<hr />
+
+<h2>Rondes</h2>
+
+<div class="clearfix">
+    <p>
+        <a class="btn btn-default" href="/Ronde/Toevoegen/@Model.ID">
+            @Html.BootstrapIcon("plus") Toevoegen
+        </a>
+    </p>
+</div>
+
+@if (Model.Rondes.Any())
+{
+    <ul class="list-group">
+        @foreach (var ronde in Model.Rondes.OrderBy(r => r.Volgorde))
+        {
+            <li class="list-group-item">
+                <a href="/Ronde/Bewerk/@ronde.ID">Ronde @ronde.Volgorde:</a> @ronde.LocatiesAlsString
+
+                <div class="pull-right">
+                    <a href="/Ronde/Omhoog/@ronde.ID">@Html.BootstrapIcon("arrow-up")</a>
+                    <a href="/Ronde/Omlaag/@ronde.ID">@Html.BootstrapIcon("arrow-down")</a>
+                    <a href="/Ronde/Verwijder/@ronde.ID">@Html.BootstrapIcon("trash")</a>
+                </div>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <span>Nog geen rondes bij dit evenement...</span>
+}
+
+<hr />
+
+<h2>Deelnemers</h2>
+
+@if (Model.Deelnemers.Any())
+{
+    <ul class="list-group">
+        @foreach (var deelnemer in Model.Deelnemers)
+        {
+            <li class="list-group-item">@deelnemer.Naam</li>
+        }
+    </ul>
+}
+else
+{
+    <span>Nog geen deelnemers bij dit evenement...</span>
+}

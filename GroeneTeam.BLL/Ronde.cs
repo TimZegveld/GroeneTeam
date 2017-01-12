@@ -1,8 +1,6 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using JemId.Basis.BLL;
 
 namespace GroeneTeam.BLL
@@ -65,17 +63,14 @@ namespace GroeneTeam.BLL
             get
             {
                 if (_locaties == null)
-                {
-                    _locaties = ObjectProvider.GetChildren<Locatie>(this);
-
-                    if (_locaties == null)
-                    {
-                        _locaties = Locatie.GeefLijst(this);
-                        ObjectProvider.PreLoad<Locatie>(_locaties);
-                    }
-                }
+                    _locaties = RondeLocatie.GeefLijst(this);
                 return _locaties;
             }
+        }
+
+        public string LocatiesAlsString
+        {
+            get { return string.Join(", ", Locaties.OrderBy(l => l.Naam).Select(l => l.Naam).ToArray()); }
         }
 
         #endregion
@@ -125,19 +120,81 @@ namespace GroeneTeam.BLL
             BLLFuncties.ValidateNotNull(Evenement, "Evenement", defaultErrMsg);
 
             DoorlooptijdInMinuten = doorlooptijdInMinuten;
-            Volgorde = Evenement.Rondes.Count + 1;
+
+            if (Volgorde == 0)
+                Volgorde = Evenement.Rondes.Count + 1;
 
             _dalObj.Save();
         }
 
-        public void Verwijderen() { _dalObj.Delete(); }
+        public void Verwijderen()
+        {
+            RondeLocatie.Verwijderen(this);
+            _dalObj.Delete();
+        }
 
-        public void ZetVolgorder(int volgorde)
+        public void ZetVolgorde(int volgorde)
         {
             if (Volgorde == volgorde) return;
 
             Volgorde = volgorde;
             _dalObj.Save();
+        }
+
+        public void LocatieToevoegen(Locatie locatie)
+        {
+            if (Locaties.Contains(locatie))
+                return;
+
+            Locaties.Add(locatie);
+            RondeLocatie.Toevoegen(this, locatie);
+        }
+
+        public void LocatieVerwijderen(Locatie locatie)
+        {
+            if (!Locaties.Contains(locatie))
+                return;
+
+            Locaties.Remove(locatie);
+            RondeLocatie.Verwijderen(this, locatie);
+        }
+
+        public void ZetLocaties(List<Locatie> locaties)
+        {
+            foreach (var locatie in locaties)
+                LocatieToevoegen(locatie);
+
+            foreach (var locatie in Locaties)
+                if (!locaties.Contains(locatie))
+                    LocatieVerwijderen(locatie);
+        }
+
+        public void VolgordeVerhogen()
+        {
+            var rondes = Evenement.Rondes.OrderBy(r => r.Volgorde).ToList();
+            var index = rondes.IndexOf(this);
+
+            if (index != rondes.Count - 1)
+            {
+                var volgendeRonde = rondes[index + 1];
+                volgendeRonde.ZetVolgorde(Volgorde);
+
+                ZetVolgorde(Volgorde + 1);
+            }
+        }
+
+        public void VolgordeVerlagen()
+        {
+            var rondes = Evenement.Rondes.OrderBy(r => r.Volgorde).ToList();
+            var index = rondes.IndexOf(this);
+
+            if (index != 0)
+            {
+                var vorigeRonde = rondes[index - 1];
+                vorigeRonde.ZetVolgorde(Volgorde);
+
+                ZetVolgorde(Volgorde - 1);
+            }
         }
 
         #endregion

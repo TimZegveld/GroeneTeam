@@ -14,6 +14,7 @@ namespace GroeneTeam.BLL
         private Deelnemer _deelnemer;
 
         private List<Ronde> _rondes;
+        private List<Deelnemer> _deelnemers;
 
         #region Constructors
 
@@ -83,6 +84,16 @@ namespace GroeneTeam.BLL
             private set { _dalObj.DeelnemerID = (_deelnemer = value).IdOr0(); }
         }
 
+        public List<Deelnemer> Deelnemers
+        {
+            get
+            {
+                if (_deelnemers == null)
+                    _deelnemers = EvenementDeelnemer.GeefLijst(this);
+                return _deelnemers;
+            }
+        }
+
         public List<Ronde> Rondes
         {
             get
@@ -104,6 +115,20 @@ namespace GroeneTeam.BLL
         #endregion
 
         #region Statics
+
+        /// <summary> Geeft een lijst van evenementen die door de gebruiker worden gehost en dus mogen worden beheert </summary>
+        public static List<Evenement> GeefLijstBeheer(Deelnemer host)
+        {
+            if (!host.MagHosten)
+                return new List<Evenement>();
+
+            return GeefLijst(string.Format("DeelnemerID = {0}", host.ID));
+        }
+
+        public static List<Evenement> GeefLijst()
+        {
+            return GeefLijst(string.Empty, string.Empty, 0);
+        }
 
         public static List<Evenement> GeefLijst(string where)
         {
@@ -153,6 +178,24 @@ namespace GroeneTeam.BLL
 
             MagUitnodigen = magUitnodigen;
             _dalObj.Save();
+        }
+
+        public void DeelnemerToevoegen(Deelnemer deelnemer)
+        {
+            if (Deelnemers.Contains(deelnemer))
+                return;
+
+            Deelnemers.Add(deelnemer);
+            EvenementDeelnemer.Toevoegen(this, deelnemer);
+        }
+
+        public void DeelnemerVerwijderen(Deelnemer deelnemer)
+        {
+            if (!Deelnemers.Contains(deelnemer))
+                return;
+
+            Deelnemers.Remove(deelnemer);
+            EvenementDeelnemer.Verwijderen(this, deelnemer);
         }
 
         #endregion

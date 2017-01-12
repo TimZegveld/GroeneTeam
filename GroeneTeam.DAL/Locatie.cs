@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JemId.Basis.DAL;
+﻿using JemId.Basis.DAL;
 
 namespace GroeneTeam.DAL
 {
@@ -29,8 +24,5 @@ namespace GroeneTeam.DAL
 
         [DatabaseField]
         public double Longitude { get; set; }
-
-        [DatabaseField]
-        public int RondeID { get; set; }
     }
 }
